@@ -3,6 +3,7 @@ import Navbar from './components/Layout/Navbar';
 import HomePage from './pages/Home/HomePage';
 import LoadingSpinner from './components/Layout/LoadingSpinner';
 import ErrorMessage from './components/Layout/ErrorMessage';
+import FlashcardDeck from './components/Flashcard/FlashcardDeck';
 import { useGenerateNotes } from './hooks/useGenerateNotes';
 
 export default function App() {
@@ -31,19 +32,8 @@ export default function App() {
         )}
 
         {!loading && !error && data && (
-          <div className="p-8 text-center bg-slate-900 border border-slate-800 rounded-2xl space-y-4">
-            <h2 className="text-2xl font-bold text-emerald-400">
-              Study Materials Ready!
-            </h2>
-            <p className="text-slate-400 text-sm">
-              Generated {data.flashcards?.length || 0} flashcards and {data.quiz?.length || 0} quiz questions.
-            </p>
-            <button
-              onClick={reset}
-              className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm rounded-lg border border-slate-700"
-            >
-              Back to Home
-            </button>
+          <div className="space-y-6">
+            <FlashcardDeck flashcards={data.flashcards} />
           </div>
         )}
       </main>
