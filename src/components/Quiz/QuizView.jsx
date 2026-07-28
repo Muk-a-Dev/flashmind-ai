@@ -7,8 +7,8 @@ export default function QuizView({ quiz, onComplete, isRetryMode = false, onCanc
 
   if (!quiz || quiz.length === 0) {
     return (
-      <div className="text-center p-8 bg-slate-900 border border-slate-800 rounded-2xl">
-        <p className="text-slate-400">No quiz questions available.</p>
+      <div className="text-center p-8 card-flat rounded-2xl">
+        <p className="text-slate-400 text-sm">No quiz questions available.</p>
       </div>
     );
   }
@@ -69,8 +69,8 @@ export default function QuizView({ quiz, onComplete, isRetryMode = false, onCanc
       {/* Header & Mode Badge */}
       <div className="flex items-center justify-between px-2">
         <div className="flex items-center gap-2">
-          <HelpCircle className="w-5 h-5 text-purple-400" />
-          <h2 className="text-xl font-bold text-slate-100">
+          <HelpCircle className="w-4 h-4 text-purple-400" />
+          <h2 className="text-base font-semibold text-slate-100">
             {isRetryMode ? 'Re-testing Wrong Questions' : 'Multiple-Choice Quiz'}
           </h2>
         </div>
@@ -79,13 +79,13 @@ export default function QuizView({ quiz, onComplete, isRetryMode = false, onCanc
           {isRetryMode && (
             <button
               onClick={onCancelRetry}
-              className="text-xs text-slate-400 hover:text-slate-200 underline mr-2"
+              className="text-xs text-slate-400 hover:text-slate-200 underline mr-2 focus-ring"
             >
               Exit Retry
             </button>
           )}
-          <div className="px-3 py-1 bg-slate-900 border border-slate-800 rounded-full text-xs font-semibold text-slate-300">
-            <span className="text-purple-400">{currentIndex + 1}</span>
+          <div className="px-2.5 py-1 bg-slate-900 border border-white/[0.08] rounded-full text-xs font-medium text-slate-300">
+            <span className="text-purple-400 font-semibold">{currentIndex + 1}</span>
             <span className="text-slate-600">/</span>
             <span>{totalQuestions}</span>
           </div>
@@ -93,16 +93,16 @@ export default function QuizView({ quiz, onComplete, isRetryMode = false, onCanc
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full bg-slate-900 border border-slate-800/80 h-2 rounded-full overflow-hidden">
+      <div className="w-full bg-slate-900 border border-white/[0.06] h-1.5 rounded-full overflow-hidden">
         <div
-          className="bg-gradient-to-r from-purple-500 to-pink-500 h-full transition-all duration-300 rounded-full"
+          className="bg-purple-500 h-full transition-all duration-200 rounded-full"
           style={{ width: `${((currentIndex + 1) / totalQuestions) * 100}%` }}
         />
       </div>
 
       {/* Question Card */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
-        <h3 className="text-lg sm:text-xl font-semibold text-slate-100 leading-relaxed">
+      <div className="card-elevated rounded-2xl p-6 sm:p-8 space-y-6 bg-[#0f172a]/90">
+        <h3 className="text-base sm:text-lg font-semibold text-slate-100 leading-relaxed">
           {currentItem.question}
         </h3>
 
@@ -116,26 +116,26 @@ export default function QuizView({ quiz, onComplete, isRetryMode = false, onCanc
               <button
                 key={idx}
                 onClick={() => handleSelectOption(option)}
-                className={`w-full p-4 rounded-xl text-left border flex items-center justify-between transition-all ${
+                className={`w-full p-3.5 rounded-xl text-left border flex items-center justify-between transition-all duration-150 focus-ring ${
                   isSelected
-                    ? 'bg-purple-950/60 border-purple-500 text-purple-100 shadow-lg shadow-purple-500/10 ring-1 ring-purple-500/50'
-                    : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700 hover:bg-slate-800/50'
+                    ? 'bg-purple-950/50 border-purple-500/80 text-purple-100 ring-1 ring-purple-500/40 shadow-sm'
+                    : 'bg-[#0b0f17]/60 border-white/[0.08] text-slate-300 hover:border-white/20 hover:bg-slate-800/40'
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <span
-                    className={`w-7 h-7 rounded-lg text-xs font-bold flex items-center justify-center border transition-colors ${
+                    className={`w-6 h-6 rounded-md text-xs font-semibold flex items-center justify-center border transition-colors ${
                       isSelected
                         ? 'bg-purple-600 border-purple-400 text-white'
-                        : 'bg-slate-800 border-slate-700 text-slate-400'
+                        : 'bg-slate-800 border-white/[0.08] text-slate-400'
                     }`}
                   >
                     {optionLabel}
                   </span>
-                  <span className="text-sm font-medium">{option}</span>
+                  <span className="text-xs sm:text-sm font-medium">{option}</span>
                 </div>
 
-                {isSelected && <CheckCircle2 className="w-5 h-5 text-purple-400 shrink-0" />}
+                {isSelected && <CheckCircle2 className="w-4 h-4 text-purple-400 shrink-0" />}
               </button>
             );
           })}
@@ -143,11 +143,11 @@ export default function QuizView({ quiz, onComplete, isRetryMode = false, onCanc
       </div>
 
       {/* Navigation & Submit Bar */}
-      <div className="flex items-center justify-between gap-4 pt-2">
+      <div className="flex items-center justify-between gap-3 pt-2">
         <button
           onClick={handlePrev}
           disabled={currentIndex === 0}
-          className="py-3 px-4 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-200 font-medium text-sm flex items-center gap-2 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+          className="py-2.5 px-4 rounded-xl bg-slate-900 border border-white/[0.08] hover:bg-slate-800 text-slate-200 font-medium text-xs sm:text-sm flex items-center gap-2 transition-all disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
         >
           <ChevronLeft className="w-4 h-4" />
           <span>Previous</span>
@@ -156,7 +156,7 @@ export default function QuizView({ quiz, onComplete, isRetryMode = false, onCanc
         {currentIndex < totalQuestions - 1 ? (
           <button
             onClick={handleNext}
-            className="py-3 px-6 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-200 font-medium text-sm flex items-center gap-2 transition-all"
+            className="py-2.5 px-5 rounded-xl bg-slate-900 border border-white/[0.08] hover:bg-slate-800 text-slate-200 font-medium text-xs sm:text-sm flex items-center gap-2 transition-all focus-ring"
           >
             <span>Next</span>
             <ChevronRight className="w-4 h-4" />
@@ -165,7 +165,7 @@ export default function QuizView({ quiz, onComplete, isRetryMode = false, onCanc
           <button
             onClick={handleSubmit}
             disabled={!isAllAnswered}
-            className="py-3 px-6 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold text-sm shadow-lg shadow-purple-600/25 flex items-center gap-2 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+            className="py-2.5 px-5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs sm:text-sm shadow-md shadow-purple-600/20 flex items-center gap-2 transition-all disabled:opacity-40 disabled:cursor-not-allowed active:scale-95 focus-ring"
           >
             <Award className="w-4 h-4" />
             <span>Submit Quiz</span>

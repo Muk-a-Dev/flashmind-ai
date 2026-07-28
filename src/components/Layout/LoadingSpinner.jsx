@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Brain } from 'lucide-react';
+import { Sparkles, BrainCircuit } from 'lucide-react';
 
 const LOADING_PHRASES = [
   "Analyzing study notes...",
-  "Extracting core concepts and facts...",
-  "Generating interactive flashcards...",
-  "Crafting multiple-choice quiz questions...",
+  "Extracting core facts & key terms...",
+  "Formatting 3D flashcards...",
+  "Generating multiple-choice quiz questions...",
   "Validating structured response..."
 ];
 
@@ -15,42 +15,37 @@ export default function LoadingSpinner() {
   useEffect(() => {
     const interval = setInterval(() => {
       setPhraseIndex((prev) => (prev + 1) % LOADING_PHRASES.length);
-    }, 2200);
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="w-full max-w-2xl mx-auto my-12 p-8 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-2xl text-center space-y-6">
-      <div className="relative w-20 h-20 mx-auto">
-        {/* Glowing aura */}
-        <div className="absolute inset-0 rounded-full bg-indigo-500/20 blur-xl animate-pulse" />
-        
-        {/* Animated spinner ring */}
-        <div className="w-full h-full rounded-full border-4 border-slate-800 border-t-indigo-500 border-r-purple-500 animate-spin" />
-        
-        {/* Center Icon */}
+    <div className="w-full max-w-xl mx-auto my-12 p-8 rounded-2xl bg-[#0f172a]/90 border border-white/[0.08] shadow-2xl text-center space-y-6">
+      <div className="relative w-16 h-16 mx-auto">
+        <div className="absolute inset-0 rounded-full bg-indigo-500/20 blur-lg animate-pulse" />
+        <div className="w-full h-full rounded-full border-2 border-slate-800 border-t-indigo-500 border-r-indigo-400 animate-spin" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <Brain className="w-8 h-8 text-indigo-400 animate-bounce" />
+          <BrainCircuit className="w-6 h-6 text-indigo-400" />
         </div>
       </div>
 
-      <div className="space-y-2">
-        <h3 className="text-xl font-bold bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 bg-clip-text text-transparent flex items-center justify-center gap-2">
+      <div className="space-y-1.5">
+        <h3 className="text-base font-semibold text-slate-100 flex items-center justify-center gap-2">
           <Sparkles className="w-4 h-4 text-indigo-400" />
-          <span>Generating Study Materials</span>
+          <span>Generating Learning Tools</span>
         </h3>
         
-        <p className="text-sm font-medium text-slate-400 h-6 transition-all duration-300">
+        <p className="text-xs font-medium text-slate-400 h-5 transition-all duration-300">
           {LOADING_PHRASES[phraseIndex]}
         </p>
       </div>
 
-      {/* Progress Bar Animation */}
-      <div className="w-full max-w-md mx-auto bg-slate-800 h-1.5 rounded-full overflow-hidden">
-        <div className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full animate-pulse w-3/4 mx-auto" />
+      {/* Sleek Progress Bar */}
+      <div className="w-full max-w-xs mx-auto bg-slate-900 border border-white/[0.06] h-1.5 rounded-full overflow-hidden">
+        <div className="h-full bg-indigo-500 rounded-full animate-pulse w-2/3 mx-auto" />
       </div>
 
-      <p className="text-xs text-slate-500 italic">
+      <p className="text-[11px] text-slate-500">
         Powered by Groq llama-3.3-70b-versatile
       </p>
     </div>

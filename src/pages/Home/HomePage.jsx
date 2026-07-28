@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, FileText, ArrowRight, BookOpen, Layers, HelpCircle } from 'lucide-react';
+import { Sparkles, ArrowRight, BookOpen, Trash2, FileText, CheckCircle2, ShieldCheck, Zap } from 'lucide-react';
 import { SAMPLE_NOTES } from '../../utils/sampleNotes';
 
 export default function HomePage({ onGenerate, loading }) {
@@ -7,6 +7,10 @@ export default function HomePage({ onGenerate, loading }) {
 
   const handleLoadSample = () => {
     setNotes(SAMPLE_NOTES);
+  };
+
+  const handleClear = () => {
+    setNotes('');
   };
 
   const handleSubmit = (e) => {
@@ -20,111 +24,129 @@ export default function HomePage({ onGenerate, loading }) {
   const charCount = notes.length;
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 py-8 sm:py-12 space-y-8">
-      {/* Hero Header */}
+    <div className="w-full max-w-4xl mx-auto px-4 py-8 sm:py-12 space-y-10">
+      
+      {/* HERO HEADER SECTION */}
       <div className="text-center space-y-4 max-w-2xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-semibold text-indigo-400">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-semibold text-indigo-400">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>AI-Powered Study Tool</span>
+          <span>Structured AI Study Engine</span>
         </div>
-        
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-100 tracking-tight leading-tight">
-          Transform Raw Notes Into{' '}
-          <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Interactive Flashcards & Quizzes
+
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-100 tracking-tight leading-[1.15]">
+          Turn raw study notes into{' '}
+          <span className="bg-gradient-to-r from-indigo-400 via-purple-300 to-indigo-300 bg-clip-text text-transparent">
+            interactive learning tools
           </span>
         </h1>
-        
-        <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-          Paste any lecture notes, article excerpts, or study guides below. FlashMind AI will parse key concepts into structured flashcards and quiz questions.
+
+        <p className="text-slate-400 text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
+          Paste lecture transcripts, textbook notes, or research summaries. FlashMind parses key facts into 3D flashcards and multiple-choice quizzes.
         </p>
       </div>
 
-      {/* Input Card Form */}
-      <form onSubmit={handleSubmit} className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-2xl space-y-4">
-        <div className="flex items-center justify-between">
-          <label className="flex items-center gap-2 text-sm font-semibold text-slate-200">
-            <FileText className="w-4 h-4 text-indigo-400" />
-            <span>Study Notes Input</span>
-          </label>
+      {/* NOTION / RAYCAST STYLE PREMIUM INPUT CONTAINER */}
+      <form 
+        onSubmit={handleSubmit} 
+        className="card-elevated rounded-2xl p-2 sm:p-3 border border-white/[0.1] shadow-2xl space-y-2 bg-[#0f172a]/90 backdrop-blur-md transition-all duration-200"
+      >
+        {/* Editor Toolbar Header */}
+        <div className="flex items-center justify-between px-3 py-2 border-b border-white/[0.06] text-xs text-slate-400">
+          <div className="flex items-center gap-2">
+            <FileText className="w-3.5 h-3.5 text-indigo-400" />
+            <span className="font-medium text-slate-300">Study Notes Editor</span>
+          </div>
 
-          <button
-            type="button"
-            onClick={handleLoadSample}
-            disabled={loading}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-indigo-300 hover:text-indigo-200 border border-slate-700 transition-colors disabled:opacity-50"
-          >
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>Example Notes</span>
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={handleLoadSample}
+              disabled={loading}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-white/[0.08] transition-all text-xs font-medium focus-ring"
+            >
+              <BookOpen className="w-3 h-3 text-indigo-400" />
+              <span>Load Example</span>
+            </button>
+
+            {notes && (
+              <button
+                type="button"
+                onClick={handleClear}
+                disabled={loading}
+                className="flex items-center gap-1 px-2 py-1 rounded-md text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-all text-xs focus-ring"
+                title="Clear text"
+              >
+                <Trash2 className="w-3 h-3" />
+                <span>Clear</span>
+              </button>
+            )}
+          </div>
         </div>
 
+        {/* Rich Text Area */}
         <div className="relative">
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
-            placeholder="Paste your study notes here..."
+            placeholder="Paste your study notes, lecture summary, or textbook chapter excerpt here..."
             disabled={loading}
             rows={10}
-            className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 text-sm leading-relaxed resize-none transition-all disabled:opacity-50 font-sans"
+            className="w-full bg-[#0b0f17]/70 rounded-xl p-4 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/50 focus:border-indigo-500/50 border border-transparent text-sm leading-relaxed font-sans resize-none transition-all disabled:opacity-50"
           />
-
-          <div className="absolute bottom-3 right-4 flex items-center gap-3 text-xs text-slate-500 pointer-events-none">
-            <span>{wordCount} words</span>
-            <span>•</span>
-            <span>{charCount} chars</span>
-          </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
-          <p className="text-xs text-slate-500 flex items-center gap-1">
-            <HelpCircle className="w-3.5 h-3.5" />
-            <span>For best results, paste at least 2-3 detailed paragraphs.</span>
-          </p>
+        {/* Editor Footer Actions Toolbar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-3 py-2 pt-1">
+          <div className="flex items-center gap-3 text-xs text-slate-500">
+            <span>{wordCount} words</span>
+            <span className="text-slate-700">•</span>
+            <span>{charCount} characters</span>
+          </div>
 
           <button
             type="submit"
             disabled={!notes.trim() || loading}
-            className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold text-sm shadow-lg shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
+            className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs sm:text-sm shadow-md shadow-indigo-600/25 transition-all flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed active:scale-95 focus-ring"
           >
-            <span>Generate Study Materials</span>
+            <span>Generate Interactive Tools</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       </form>
 
-      {/* Feature Highlights Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
-        <div className="p-4 rounded-xl bg-slate-900/50 border border-slate-800/80 flex items-start gap-3">
-          <div className="p-2.5 rounded-lg bg-indigo-500/10 text-indigo-400">
-            <Layers className="w-5 h-5" />
+      {/* RESTRAINED FEATURE HIGHLIGHTS */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+        <div className="p-4 rounded-xl card-flat space-y-1.5 border border-white/[0.06]">
+          <div className="flex items-center gap-2 text-indigo-400 text-xs font-semibold">
+            <Zap className="w-4 h-4" />
+            <span>Structured Data Only</span>
           </div>
-          <div>
-            <h4 className="text-sm font-semibold text-slate-200">Interactive Flashcards</h4>
-            <p className="text-xs text-slate-400 mt-1">3D card flipping with instant front/back reveal and step navigation.</p>
-          </div>
+          <p className="text-xs text-slate-400 leading-relaxed">
+            Not a chatbot. Strictly converts unstructured notes into validated JSON components.
+          </p>
         </div>
 
-        <div className="p-4 rounded-xl bg-slate-900/50 border border-slate-800/80 flex items-start gap-3">
-          <div className="p-2.5 rounded-lg bg-purple-500/10 text-purple-400">
-            <HelpCircle className="w-5 h-5" />
+        <div className="p-4 rounded-xl card-flat space-y-1.5 border border-white/[0.06]">
+          <div className="flex items-center gap-2 text-purple-400 text-xs font-semibold">
+            <CheckCircle2 className="w-4 h-4" />
+            <span>3D Flashcards & Quiz</span>
           </div>
-          <div>
-            <h4 className="text-sm font-semibold text-slate-200">Multiple-Choice Quiz</h4>
-            <p className="text-xs text-slate-400 mt-1">Test your recall with auto-graded multiple-choice options.</p>
-          </div>
+          <p className="text-xs text-slate-400 leading-relaxed">
+            Interactive front/back 3D cards and auto-graded multiple-choice assessment.
+          </p>
         </div>
 
-        <div className="p-4 rounded-xl bg-slate-900/50 border border-slate-800/80 flex items-start gap-3">
-          <div className="p-2.5 rounded-lg bg-emerald-500/10 text-emerald-400">
-            <Sparkles className="w-5 h-5" />
+        <div className="p-4 rounded-xl card-flat space-y-1.5 border border-white/[0.06]">
+          <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold">
+            <ShieldCheck className="w-4 h-4" />
+            <span>Failure Resilient</span>
           </div>
-          <div>
-            <h4 className="text-sm font-semibold text-slate-200">Smart Retry Logic</h4>
-            <p className="text-xs text-slate-400 mt-1">Re-test wrong quiz questions to master difficult concepts.</p>
-          </div>
+          <p className="text-xs text-slate-400 leading-relaxed">
+            Handles malformed JSON, timeouts, and stale responses gracefully with AbortController.
+          </p>
         </div>
       </div>
+
     </div>
   );
 }

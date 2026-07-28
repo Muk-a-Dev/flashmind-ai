@@ -9,7 +9,6 @@ export default function ErrorMessage({ error, onRetry }) {
   let title = "Something went wrong";
   let displayMessage = message || "An unexpected error occurred.";
   let Icon = AlertTriangle;
-  let accentColor = "from-amber-500/20 to-rose-500/20 border-rose-500/30";
 
   if (type === 'MALFORMED_AI_OUTPUT' || type === 'INVALID_SCHEMA') {
     title = "Parsing Error";
@@ -26,22 +25,22 @@ export default function ErrorMessage({ error, onRetry }) {
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto my-8 p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl text-center space-y-4">
-      <div className={`w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br ${accentColor} border flex items-center justify-center`}>
-        <Icon className="w-7 h-7 text-rose-400" />
+    <div className="w-full max-w-xl mx-auto my-8 p-6 rounded-2xl bg-[#0f172a] border border-rose-500/30 shadow-xl text-center space-y-4">
+      <div className="w-12 h-12 mx-auto rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
+        <Icon className="w-6 h-6 text-rose-400" />
       </div>
 
       <div className="space-y-1">
-        <h3 className="text-xl font-bold text-slate-100">{title}</h3>
-        <p className="text-slate-400 text-sm max-w-md mx-auto">{displayMessage}</p>
+        <h3 className="text-base font-semibold text-slate-100">{title}</h3>
+        <p className="text-slate-400 text-xs sm:text-sm max-w-md mx-auto">{displayMessage}</p>
       </div>
 
       <div className="pt-2">
         <button
           onClick={onRetry}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-all shadow-lg shadow-indigo-600/25 active:scale-95"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs sm:text-sm transition-all shadow-md shadow-indigo-600/20 active:scale-95 focus-ring"
         >
-          <RotateCcw className="w-4 h-4" />
+          <RotateCcw className="w-3.5 h-3.5" />
           <span>Try Again</span>
         </button>
       </div>
