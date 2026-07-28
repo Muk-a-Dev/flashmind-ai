@@ -1,10 +1,15 @@
 /**
  * Frontend API client service for communicating with FlashMind backend.
+ * Supports environment variable VITE_API_BASE_URL for deployed backend proxies.
  */
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 export async function generateStudyNotesAPI(notes, signal) {
   try {
-    const response = await fetch('/api/generate', {
+    const endpoint = `${API_BASE_URL}/api/generate`;
+    
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
