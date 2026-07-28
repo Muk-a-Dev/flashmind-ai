@@ -3,8 +3,8 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  // Exact base repository path for GitHub Pages deployment
-  base: process.env.NODE_ENV === 'production' ? '/flashmind-ai/' : '/',
+  // Relative base path ensures compiled scripts load seamlessly on any GitHub Pages domain/subpath
+  base: './',
   server: {
     port: 3000,
     proxy: {
